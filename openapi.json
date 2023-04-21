@@ -7,7 +7,7 @@
     },
     "description": "This is a Kosha REST serice for exposing many Cisco ASA software features as REST APIs with better consistency, observability etc",
     "termsOfService": "http://swagger.io/terms/",
-    "title": "Cisco ASA Connector API",
+    "title": "Cisco ASAv Connector API",
     "version": "2.0"
   },
   "servers": [{
