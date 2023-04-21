@@ -1,0 +1,1519 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "contact": {
+      "email": "eti@cisco.io",
+      "name": "API Support"
+    },
+    "description": "This is a Kosha REST serice for exposing many Cisco ASA software features as REST APIs with better consistency, observability etc",
+    "termsOfService": "http://swagger.io/terms/",
+    "title": "Cisco ASA Connector API",
+    "version": "2.0"
+  },
+  "servers": [{
+    "url": "/"
+  }],
+  "paths": {
+    "/api/access": {
+      "get": {
+        "parameters": [{
+          "description": "Number of items to return; maximum of 100",
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "type": "integer"
+          }
+        },
+          {
+            "description": "Index of first item to return",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.AccessGroup"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Access"
+        ],
+        "description": "List all current access-group definitions",
+        "summary": "List all current access-group definitions"
+      }
+    },
+    "/api/access/global": {
+      "get": {
+        "parameters": [{
+          "description": "Number of items to return; maximum of 100",
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "type": "integer"
+          }
+        },
+          {
+            "description": "Index of first item to return",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.AccessGroup"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Access"
+        ],
+        "description": "List all global access rules and groups",
+        "summary": "List all global access rules and groups"
+      }
+    },
+    "/api/access/global/rules/{objectId}": {
+      "post": {
+        "parameters": [{
+          "description": "Object Id",
+          "in": "path",
+          "name": "objectId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+          {
+            "description": "Number of items to return; maximum of 100",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Index of first item to return",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.CreateNewAccessRuleStruct"
+              }
+            }
+          }
+        },
+
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.AccessRuleStruct"
+                }
+              }
+            },
+            "description": "Created"
+          },
+          "400": {
+            "description": "Duplicate access rule"
+          }
+        },
+        "tags": [
+          "Access"
+        ],
+        "description": "Add a new global access rule",
+        "summary": "Add a new global access rule"
+      },
+      "get": {
+        "parameters": [{
+          "description": "Object Id",
+          "in": "path",
+          "name": "objectId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.AccessRuleStruct"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Access"
+        ],
+        "description": "Fetch a global access rule",
+        "summary": "Fetch a global access rule"
+      },
+      "put": {
+        "parameters": [{
+          "description": "Object Id",
+          "in": "path",
+          "name": "objectId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "204": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Access"
+        ],
+        "description": "Update an existing global access rule",
+        "summary": "Update an existing global access rule"
+      },
+      "delete": {
+        "parameters": [{
+          "description": "Object Id",
+          "in": "path",
+          "name": "objectId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "204": {
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Access"
+        ],
+        "description": "Remove an global access rule",
+        "summary": "Remove an global access rule"
+      }
+    },
+    "/api/cli": {
+      "post": {
+        "requestBody": {
+          "description": "Array of CLI commands to be executed.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.CLICommands"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "CLI"
+        ],
+        "description": "API for executing a list of CLI commands on the device",
+        "summary": "API for executing a list of CLI commands on the device"
+      }
+    },
+    "/api/aaa/authentication": {
+      "put": {
+        "requestBody": {
+          "description": "Parameters for updating the AAA Authentication configuration.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.AAAConfig"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.AAAConfig"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "AAA"
+        ],
+        "description": "Update the AAA Authentication configuration",
+        "summary": "Update the AAA Authentication configuration"
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.AAAConfig"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "AAA"
+        ],
+        "description": "Get the current AAA Authentication configuration",
+        "summary": "Get the current AAA Authentication configuration"
+      }
+    },
+    "/api/aaa/authorization": {
+      "put": {
+        "requestBody": {
+          "description": "Parameters for updating the AAA Authorization configuration.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.AAAConfigAuthz"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.AAAConfigAuthz"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "AAA"
+        ],
+        "description": "Update the AAA Authorization configuration",
+        "summary": "Update the AAA Authorization configuration"
+      },
+      "get": {
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.AAAConfigAuthz"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "AAA"
+        ],
+        "description": "Get the current AAA Authorization configuration",
+        "summary": "Get the current AAA Authorization configuration"
+      }
+    },
+    "/api/objects/localusers": {
+      "get": {
+        "parameters": [{
+          "description": "Number of items to return; maximum of 100",
+          "in": "query",
+          "name": "limit",
+          "required": false,
+          "schema": {
+            "type": "integer"
+          }
+        },
+          {
+            "description": "Index of first item to return",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.LocalUsers"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Objects"
+        ],
+        "description": "List all local user definitions",
+        "summary": "List all local user definition"
+      },
+      "post": {
+        "requestBody": {
+          "description": "Definition of the new local user to be added",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.LocalUsers"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ListAllLocalUsers"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "Objects"
+        ],
+        "description": "Add a new local user",
+        "summary": "Add a new local user"
+      }
+    },
+    "/api/objects/localusers/{objectId}": {
+      "get": {
+        "parameters": [{
+          "description": "The object ID of the local user to be fetched",
+          "in": "path",
+          "name": "objectId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+          {
+            "description": "Number of items to return; maximum of 100",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Index of first item to return",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.LocalUsers"
+                }
+              }
+            },
+            "description": "OK"
+          }
+        },
+        "tags": [
+          "Objects"
+        ],
+        "description": "Fetch a local user definition",
+        "summary": "Fetch a local user definition"
+      },
+      "put": {
+        "parameters": [{
+          "description": "The object ID of the local user to be fetched",
+          "in": "path",
+          "name": "objectId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "requestBody": {
+          "description": "The object ID of the local user to be updated",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.LocalUsers"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.LocalUsers"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "Objects"
+        ],
+        "description": "Update an existing local user object",
+        "summary": "Update an existing local user object"
+      },
+      "delete": {
+        "parameters": [{
+          "description": "The object ID of the local user to be deleted",
+          "in": "path",
+          "name": "objectId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "204": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.LocalUsers"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "Objects"
+        ],
+        "description": "Delete an existing local user object",
+        "summary": "Delete an existing local user object"
+      }
+    },
+    "/api/objects/extendedacls/{objectId}": {
+      "get": {
+        "parameters": [{
+          "description": "The object ID of the extended ACL message to be fetched",
+          "in": "path",
+          "name": "objectId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+          {
+            "description": "Number of items to return; maximum of 100",
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          },
+          {
+            "description": "Index of first item to return",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.ExtendedACLs"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "Objects"
+        ],
+        "description": "Fetch an extended ACL",
+        "summary": "Fetch an extended ACL"
+      }
+    },
+    "/api/vpn/grouppolicies": {
+      "get": {
+        "parameters": [{
+          "description": "Index of first item to return",
+          "in": "query",
+          "name": "offset",
+          "required": false,
+          "schema": {
+            "type": "integer"
+          }
+        }],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.VPNSecurityPolicies"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "VPN"
+        ],
+        "description": "List all security group policies",
+        "summary": "List all security group policies"
+      },
+      "post": {
+        "requestBody": {
+          "description": "Add a new security group policy",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.VPNSecurityPolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "VPN"
+        ],
+        "description": "Add new VPN Security Group Policy",
+        "summary": "Add new VPN Security Group Policy"
+      }
+    },
+    "/api/vpn/grouppolicies/{objectId}": {
+      "get": {
+        "parameters": [{
+          "description": "The object ID of the group policy to be fetched",
+          "in": "path",
+          "name": "objectId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+          {
+            "description": "Index of first item to return",
+            "in": "query",
+            "name": "offset",
+            "required": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/models.VPNSecurityPolicies"
+                }
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "VPN"
+        ],
+        "description": "Fetch a single security group policy",
+        "summary": "Fetch a single security group policy"
+      },
+      "put": {
+        "parameters": [{
+          "description": "The object ID of the group policy to be updated",
+          "in": "path",
+          "name": "objectId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "requestBody": {
+          "description": "Update an existing security group policy",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/models.VPNSecurityPolicy"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "VPN"
+        ],
+        "description": "Update an existing VPN Security Policy",
+        "summary": "Update an existing VPN Security Policy"
+      },
+      "delete": {
+        "parameters": [{
+          "description": "The object ID of the security group policy to be deleted",
+          "in": "path",
+          "name": "objectId",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        }],
+        "responses": {
+          "204": {
+            "description": "Success"
+          }
+        },
+        "tags": [
+          "VPN"
+        ],
+        "description": "Delete an existing VPN Security Policy",
+        "summary": "Delete an existing VPN Security Policy"
+      }
+    }
+  },
+  "components": {
+    "requestBodies": {
+      "models.Record": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/models.Record"
+            }
+          }
+        },
+        "description": "Enter project risk properties"
+      }
+    },
+    "schemas": {
+      "models.VPNSecurityPolicies": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "selfLink": {
+            "type": "string"
+          },
+          "rangeInfo": {
+            "type": "object",
+            "properties": {
+              "offset": {
+                "type": "integer"
+              },
+              "limit": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "offset",
+              "limit",
+              "total"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string"
+                },
+                "selfLink": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string"
+                },
+                "attributes": {
+                  "type": "object",
+                  "properties": {
+                    "tunnelingProtocols": {
+                      "type": "string"
+                    },
+                    "filter": {
+                      "type": "string"
+                    },
+                    "maxConnectTime": {
+                      "type": "integer"
+                    },
+                    "idleTimeout": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "tunnelingProtocols",
+                    "filter",
+                    "maxConnectTime",
+                    "idleTimeout"
+                  ]
+                },
+                "objectId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "kind",
+                "selfLink",
+                "name",
+                "type",
+                "attributes",
+                "objectId"
+              ]
+            }
+          }
+        },
+        "required": [
+          "kind",
+          "selfLink",
+          "rangeInfo",
+          "items"
+        ]
+      },
+      "models.VPNSecurityPolicy": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "tunnelingProtocols": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "filter": {
+                "type": "string"
+              },
+              "idleTimeout": {
+                "type": "string"
+              },
+              "maxConnectTime": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "tunnelingProtocols",
+              "filter",
+              "idleTimeout",
+              "maxConnectTime"
+            ]
+          }
+        },
+        "required": [
+          "kind",
+          "type",
+          "name",
+          "attributes"
+        ]
+      },
+      "models.ExtendedACLs": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "objectId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "name",
+          "objectId"
+        ]
+      },
+      "models.ListAllLocalUsers": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "selfLink": {
+            "type": "string"
+          },
+          "rangeInfo": {
+            "type": "object",
+            "properties": {
+              "offset": {
+                "type": "integer"
+              },
+              "limit": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "offset",
+              "limit",
+              "total"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string"
+                },
+                "selfLink": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "MSCHAPauthenticated": {
+                  "type": "boolean"
+                },
+                "privilegeLevel": {
+                  "type": "integer"
+                },
+                "ASDM_CLIAccessType": {
+                  "type": "string"
+                },
+                "objectId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "kind",
+                "selfLink",
+                "name",
+                "MSCHAPauthenticated",
+                "privilegeLevel",
+                "ASDM_CLIAccessType",
+                "objectId"
+              ]
+            }
+          }
+        },
+        "required": [
+          "kind",
+          "selfLink",
+          "rangeInfo",
+          "items"
+        ]
+      },
+      "models.LocalUsers": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "selfLink": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "MSCHAPauthenticated": {
+            "type": "boolean"
+          },
+          "privilegeLevel": {
+            "type": "integer"
+          },
+          "ASDM_CLIAccessType": {
+            "type": "string"
+          },
+          "objectId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "selfLink",
+          "name",
+          "MSCHAPauthenticated",
+          "privilegeLevel",
+          "ASDM_CLIAccessType",
+          "objectId"
+        ]
+      },
+      "models.AAAConfig": {
+        "type": "object",
+        "properties": {
+          "enable": {
+            "type": "object",
+            "properties": {
+              "serverGroup": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "serverGroup",
+              "enabled"
+            ]
+          },
+          "http": {
+            "type": "object",
+            "properties": {
+              "serverGroup": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "serverGroup",
+              "enabled"
+            ]
+          },
+          "serial": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "enabled"
+            ]
+          },
+          "ssh": {
+            "type": "object",
+            "properties": {
+              "serverGroup": {
+                "type": "string"
+              },
+              "enabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "serverGroup",
+              "enabled"
+            ]
+          },
+          "telnet": {
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "enabled"
+            ]
+          }
+        },
+        "required": [
+          "enable",
+          "http",
+          "serial",
+          "ssh",
+          "telnet"
+        ]
+      },
+      "models.AAAConfigAuthz": {
+        "type": "object",
+        "properties": {
+          "enableCommandAccess": {
+            "type": "boolean"
+          },
+          "commandAccessServerGroup": {
+            "type": "string"
+          },
+          "enableShellAccess": {
+            "type": "string"
+          },
+          "autoenableExecMode": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "enableCommandAccess",
+          "commandAccessServerGroup",
+          "enableShellAccess",
+          "autoenableExecMode"
+        ]
+      },
+      "models.CLICommands": {
+        "type": "object",
+        "properties": {
+          "commands": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "commands"
+        ]
+      },
+      "models.CreateNewAccessRuleStruct": {
+        "type": "object",
+        "properties": {
+          "permit": {
+            "type": "boolean"
+          },
+          "sourceAddress": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ]
+          },
+          "destinationAddress": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ]
+          },
+          "sourceService": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ]
+          },
+          "destinationService": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ]
+          },
+          "timeRange": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "objectId": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "objectId"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "remarks": {
+            "type": "array",
+            "items": {}
+          },
+          "position": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "permit",
+          "sourceAddress",
+          "destinationAddress",
+          "sourceService",
+          "destinationService",
+          "timeRange",
+          "active",
+          "remarks",
+          "position"
+        ]
+      },
+      "models.CreateRecords": {
+        "type": "object",
+        "properties": {
+          "fields": {
+            "type": "object",
+            "properties": {
+              "column_name": {
+                "type": "string"
+              },
+              "column_value": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "models.FieldsStruct": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "description",
+          "name"
+        ]
+      },
+      "models.NewField": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "options": {
+            "type": "object",
+            "properties": {
+              "color": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "color",
+              "icon"
+            ]
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "description",
+          "name",
+          "type"
+        ]
+      },
+      "models.AccessGroup": {
+        "type": "object",
+        "properties": {
+          "selfLink": {
+            "type": "string"
+          },
+          "rangeInfo": {
+            "type": "object",
+            "properties": {
+              "offset": {
+                "type": "integer"
+              },
+              "limit": {
+                "type": "integer"
+              },
+              "total": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "offset",
+              "limit",
+              "total"
+            ]
+          },
+          "items": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "selfLink",
+          "rangeInfo",
+          "items"
+        ]
+      },
+      "models.AccessRuleStruct": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string"
+          },
+          "permit": {
+            "type": "boolean"
+          },
+          "sourceAddress": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ]
+          },
+          "destinationAddress": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ]
+          },
+          "sourceService": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ]
+          },
+          "destinationService": {
+            "type": "object",
+            "properties": {
+              "kind": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "kind",
+              "value"
+            ]
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "remarks": {
+            "type": "array",
+            "items": {}
+          },
+          "ruleLogging": {
+            "type": "object",
+            "properties": {
+              "logInterval": {
+                "type": "integer"
+              },
+              "logStatus": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "logInterval",
+              "logStatus"
+            ]
+          },
+          "position": {
+            "type": "integer"
+          },
+          "isAccessRule": {
+            "type": "boolean"
+          },
+          "objectId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "kind",
+          "permit",
+          "sourceAddress",
+          "destinationAddress",
+          "sourceService",
+          "destinationService",
+          "active",
+          "remarks",
+          "ruleLogging",
+          "position",
+          "isAccessRule",
+          "objectId"
+        ]
+      },
+      "models.Field": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "description",
+          "id",
+          "name",
+          "type"
+        ]
+      },
+      "models.Record": {
+        "properties": {
+          "createdTime": {
+            "type": "string"
+          },
+          "fields": {
+            "$ref": "#/components/schemas/models.Field"
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "models.RecordsStruct": {
+        "properties": {
+          "records": {
+            "items": {
+              "properties": {
+                "createdTime": {
+                  "type": "string"
+                },
+                "fields": {
+                  "properties": {
+                    "Field": {
+                      "type": "string"
+                    }
+                  },
+                  "type": "object"
+                },
+                "id": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}
