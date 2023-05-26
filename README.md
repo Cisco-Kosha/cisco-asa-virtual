@@ -35,3 +35,9 @@ Refer to the Cisco ASA Virtual connector [API specification](openapi.json) for d
 Configuration requires your Cisco ASA Virtual Server URL, username and password. The connector automatically injects 'User-Agent' header automatically for every requests made.
 
 Reachability to the Server URL is required in order for the connector to work properly. Please configure your firewall rules appropriately.
+
+## Kosha Connector Open Source Development
+
+All connectors Kosha shares on the marketplace are open source. We believe in fostering collaboration and open development. Everyone is welcome to contribute their ideas, improvements, and feedback for any Kosha connector. We encourage community engagement and appreciate any contributions that align with our goals of an open and collaborative API management platform.
+
+Refer to the contribution guidelines for details.
